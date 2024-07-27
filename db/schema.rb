@@ -10,15 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_29_140218) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_27_131221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delivery_partners", force: :cascade do |t|
+    t.integer "order_id"
+    t.string "name"
+    t.string "password"
+    t.string "city"
+    t.text "address"
+    t.string "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "food_items", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.string "name"
+    t.decimal "price", precision: 20, scale: 2, default: "0.0"
+    t.string "image_path"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "restaurant_id"
+    t.string "food_item_ids"
+    t.date "date"
+    t.text "delivery_partner_id"
+    t.string "status"
+    t.decimal "amount", precision: 20, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password"
     t.string "digest"
+    t.string "city"
+    t.text "address"
+    t.string "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password"
     t.string "city"
     t.text "address"
     t.string "contact"

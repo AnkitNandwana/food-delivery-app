@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 100
+  port: <%= Rails.application.credentials.database.port %>
+  host: <%= Rails.application.credentials.database.host %>
+  database: <%= Rails.application.credentials.database.name %>
+  username: <%= Rails.application.credentials.database.username %>
+  password: <%= Rails.application.credentials.database.password %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+demo:
+  <<: *default
+
+qa:
+  <<: *default
+  schema_search_path: <%= Rails.application.credentials.database.schema %>
+
+production:
+  <<: *default
+  schema_search_path: <%= Rails.application.credentials.database.schema %>
